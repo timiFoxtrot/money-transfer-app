@@ -29,7 +29,7 @@ knex
     process.exit(1); // Exit if the database is not connected
   });
 
-app.get("/v1/health", (req: Request, res: Response): any => {
+app.get("/api/health", (req: Request, res: Response): any => {
   return res.status(200).json({
     status: "status",
     message: "server is up and running",
