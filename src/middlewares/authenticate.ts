@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import knex from "../models/knex";
 
 export const authenticate = () => {
-  return async (req: Request, res: Response, next: NextFunction) => {
+  return async (req: Request, res: Response, next: NextFunction): Promise<any> => {
     const { authorization } = req.headers;
 
     if (!authorization) {
@@ -39,15 +39,14 @@ export const authenticate = () => {
 
       delete user.password;
       res.locals.user = user;
-      return next();
+      next();
     } catch (error) {
-      return res
-        .status(401)
-        .json({
-          success: false,
-          statusCode: 401,
-          message: error || "Invalid token",
-        });
+      res.status(401).json({
+        success: false,
+        statusCode: 401,
+        message: error || "Invalid token",
+      });
+      // return next(error);
     }
   };
 };

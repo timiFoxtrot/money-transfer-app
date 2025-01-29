@@ -33,13 +33,13 @@ export const UserController = {
           .where({ id: userId })
           .first();
 
-        console.log({ user });
-
         res.status(201).json({ message: "User created successfully", user });
       } catch (error: any) {
         res
           .status(500)
           .json({ status: "error", message: "Error creating user", error });
+
+        next(error);
       }
     },
 
